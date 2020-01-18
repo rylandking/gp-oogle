@@ -13,117 +13,43 @@
     <title>GP-OOGLE</title>
   </head>
   <body>
-    <!-- NAVBAR -->
-    <nav class="white">
-      <div class="brand-logo center">
-        <ul>
+    <nav class="white z-depth-0">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Logo</a>
+        <ul class="right">
           <li class="logged-in">
-            <a href="#" class="blue-text" id="logout">Logout</a>
-          </li>
-          <li class="logged-in">
-            <a
-              href="#"
-              class="blue-text modal-trigger"
-              data-target="modal-create"
-              >Admin</a
+            <a href="#" class="teal-text darken-4" id="logout"
+              ><strong>Logout</strong></a
             >
           </li>
           <li class="logged-out">
             <a
               href="#"
-              class="blue-text modal-trigger"
+              class="teal-text darken-4 modal-trigger"
               data-target="modal-login"
-              >Login</a
+              ><strong>Login</strong></a
             >
           </li>
           <li class="logged-out">
             <a
               href="#"
-              class="blue-text modal-trigger"
+              class="teal-text darken-4 modal-trigger"
               data-target="modal-signup"
-              >Sign up</a
+              ><strong>Sign up</strong></a
             >
           </li>
         </ul>
       </div>
     </nav>
 
-    <!-- SIGN UP MODAL -->
-    <div id="modal-signup" class="modal">
-      <div class="modal-content">
-        <h4>Sign up</h4>
-        <br />
-        <form id="signup-form">
-          <div class="input-field">
-            <input type="email" id="signup-email" required />
-            <label for="signup-email">Email address</label>
-          </div>
-          <div class="input-field">
-            <input type="password" id="signup-password" required />
-            <label for="signup-password">Choose password</label>
-          </div>
-          <button class="btn blue darken-2 z-depth-0">Sign up</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- LOGIN MODAL -->
-    <div id="modal-login" class="modal">
-      <div class="modal-content">
-        <h4>Login</h4>
-        <br />
-        <form id="login-form">
-          <div class="input-field">
-            <input type="email" id="login-email" required />
-            <label for="login-email">Email address</label>
-          </div>
-          <div class="input-field">
-            <input type="password" id="login-password" required />
-            <label for="login-password">Your password</label>
-          </div>
-          <button class="btn blue darken-2 z-depth-0">Login</button>
-        </form>
-      </div>
-    </div>
-
     <!-- Search Bar -->
     <div class="container">
       <div class="row">
-        <div class="col-md-6 m-auto">
+        <div class="col s12">
           <h1 class="text-center mb-3">GP-OOGLE</h1>
 
-          <div
-            id="loading-alert"
-            class="alert alert-dismissible alert-secondary"
-          >
-            <h6 class="alert-heading font-weight-bold mt-2">
-              Hi there! Please wait before you search.
-              <br />
-              <br />
-              I'm loading all 1.7M GPO members right now... 👨‍💻
-            </h6>
-          </div>
-
-          <div
-            id="instructions-alert"
-            class="alert alert-dismissible alert-info d-none"
-          >
-            <h6 class="alert-heading font-weight-bold mt-2">
-              My page load might take 10-15 secs, but once I'm done I'll be
-              faster than any spreadsheet. I promise. 🤓
-              <br />
-              <br />
-              Finishing up... 👨‍💻
-            </h6>
-          </div>
-
-          <div
-            id="ready-alert"
-            class="alert alert-dismissible alert-success d-none"
-          >
-            <h6 class="alert-heading font-weight-bold mt-2">
-              Okay, Ready to go! 👍
-            </h6>
+          <div id="loading-alert" class="progress">
+            <div class="indeterminate"></div>
           </div>
 
           <div class="form-group">
@@ -142,10 +68,86 @@
             SEARCH
           </button>
           <div id="match-list"></div>
+
+          <!-- GPO MEMBER CARD -->
+          <div class="card card-body">
+            <h5 class="teal-text lighten-1"><strong>Sutter Health</strong></h5>
+            <p class="blue-grey-text darken-4 mb-2">
+              795 Moana Way, Pacifica, CA 94044
+            </p>
+            <p class="blue-grey-text darken-4 mb-2">650.576.0325</p>
+            <span class="grey-text lighten-1 mb-4"
+              >Direct Parent Name | Top Parent Name</span
+            >
+            <div class="new teal lighten-1 py-3 center">
+              <strong><span class="white-text">Vizient - 031456</span></strong>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- SIGN UP MODAL -->
+    <div id="modal-signup" class="modal">
+      <div class="modal-content">
+        <h4>Sign up</h4>
+        <br />
+        <form id="signup-form">
+          <div class="input-field">
+            <input type="email" id="signup-email" required />
+            <label for="signup-email">Email address</label>
+          </div>
+          <div class="input-field">
+            <input type="password" id="signup-password" required />
+            <label for="signup-password">Choose password</label>
+          </div>
+          <button class="btn teal lighten-1 z-depth-0">Sign up</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- LOGIN MODAL -->
+    <div id="modal-login" class="modal">
+      <div class="modal-content">
+        <h4>Login</h4>
+        <br />
+        <form id="login-form">
+          <div class="input-field">
+            <input type="email" id="login-email" required />
+            <label for="login-email">Email address</label>
+          </div>
+          <div class="input-field">
+            <input type="password" id="login-password" required />
+            <label for="login-password">Your password</label>
+          </div>
+          <button class="btn teal lighten-1 z-depth-0">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-firestore.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: 'AIzaSyDHboF4M-Qb3B3jcMPAgTPJQeDEGgdgko0',
+        authDomain: 'gp-oogle.firebaseapp.com',
+        databaseURL: 'https://gp-oogle.firebaseio.com',
+        projectId: 'gp-oogle'
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      // Make Auth and Firestore references
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+    </script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/index.js"></script>
