@@ -20,13 +20,19 @@ signUpForm.addEventListener('submit', e => {
   const password = signUpForm['signup-password'].value;
 
   // Sign Up The User
-  auth.createUserWithEmailAndPassword(email, password).then(cred => {
-    const modal = document.querySelector('#modal-signup');
-    // Close Modal
-    M.Modal.getInstance(modal).close();
-    // Reset Sign Up Form Inputs
-    signUpForm.reset();
-  });
+  auth
+    .createUserWithEmailAndPassword(email, password)
+    .then(cred => {
+      const modal = document.querySelector('#modal-signup');
+      // Close Modal
+      M.Modal.getInstance(modal).close();
+      // Reset Sign Up Form Inputs
+      signUpForm.reset();
+      signUpForm.querySelector('.error').innerHTML = '';
+    })
+    .catch(err => {
+      signUpForm.querySelector('.error').innerHTML = err.message;
+    });
 });
 
 // Log Out
@@ -48,11 +54,17 @@ loginForm.addEventListener('submit', e => {
   const email = loginForm['login-email'].value;
   const password = loginForm['login-password'].value;
 
-  auth.signInWithEmailAndPassword(email, password).then(cred => {
-    const modal = document.querySelector('#modal-login');
-    // Close Modal
-    M.Modal.getInstance(modal).close();
-    // Reset Sign Up Form Inputs
-    loginForm.reset();
-  });
+  auth
+    .signInWithEmailAndPassword(email, password)
+    .then(cred => {
+      const modal = document.querySelector('#modal-login');
+      // Close Modal
+      M.Modal.getInstance(modal).close();
+      // Reset Sign Up Form Inputs
+      loginForm.reset();
+      loginForm.querySelector('.error').innerHTML = '';
+    })
+    .catch(err => {
+      loginForm.querySelector('.error').innerHTML = err.message;
+    });
 });
