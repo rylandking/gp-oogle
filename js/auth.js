@@ -29,19 +29,49 @@ auth.onAuthStateChanged(user => {
 
     // Get Data On Click
     const searchButton = document.querySelector('#search-button');
+    let searchInput = document.querySelector('#search-input');
+    // Get all documents matching searchInput on 'enter' key click
+    searchInput.addEventListener('keyup', function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        searchButton.click();
+      }
+    });
+
+    // Get all documents matching searchInput on click
     searchButton.addEventListener('click', e => {
-      db.collection('test').onSnapshot(
-        data => {
-          setupMatchedList(data.docs);
-        },
-        err => {
-          console.log(err.message);
-        }
-      );
+      // If no matching document, run this function
+      const noMatch = () => {
+        const matchedList = document.querySelector('#matched-list');
+        matchedList.innerHTML = `<p id="no-matches" class="teal-text darken-4 center-align pt-3">No matches. Please try another search.</p>`;
+      };
+      // Get value inside searchInput
+      searchInput = document.querySelector('#search-input').value.toLowerCase();
+      // Ensure the searchInput string is > 0
+      if (searchInput.length < 1) {
+        noMatch();
+      } else {
+        // Find all documents where the city field starts with/matches the searchInput
+        db.collection('test')
+          .where('city', '>=', searchInput)
+          .where('city', '<=', searchInput + '\uf8ff')
+          .get()
+          .then(function(data) {
+            data.forEach(function(doc) {
+              setupMatchedList(data.docs);
+            });
+            // If no matching document
+            if (data.empty) {
+              noMatch();
+            }
+          })
+          .catch(function(error) {
+            console.log(error.message);
+          });
+      }
     });
   } else {
     setupMatchedList([]);
-
     setupUI(user);
   }
 });
