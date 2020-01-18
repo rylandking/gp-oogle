@@ -27,9 +27,18 @@ auth.onAuthStateChanged(user => {
       setupUI(user);
     });
 
-    // Get Data On Click
+    // Get Data On Click or Enter Key Stroke
     const searchButton = document.querySelector('#search-button');
     let searchInput = document.querySelector('#search-input');
+    const searchMemberName = document.querySelector(
+      'input[searchBy=searchMemberName]'
+    );
+    const searchAddress = document.querySelector(
+      'input[searchBy=searchAddress]'
+    );
+    const searchCity = document.querySelector('input[searchBy=searchCity]');
+    const searchPhone = document.querySelector('input[searchBy=searchPhone]');
+    const searchZip = document.querySelector('input[searchBy=searchZip]');
     // Get all documents matching searchInput on 'enter' key click
     searchInput.addEventListener('keyup', function(event) {
       if (event.keyCode === 13) {
@@ -38,39 +47,64 @@ auth.onAuthStateChanged(user => {
       }
     });
 
+    // Find all documents with city field matches searchInput
+    const searchQuery = () => {
+      db.collection('test')
+        .where(field, '>=', searchInput)
+        .where(field, '<=', searchInput + '\uf8ff')
+        .get()
+        .then(function(data) {
+          data.forEach(function(doc) {
+            setupMatchedList(data.docs);
+          });
+          // If no matching document
+          if (data.empty) {
+            noMatch();
+          }
+        })
+        .catch(function(error) {
+          console.log(error.message);
+        });
+    };
+
+    // If no matching document, run this function
+    const noMatch = () => {
+      const matchedList = document.querySelector('#matched-list');
+      matchedList.innerHTML = `<p id="no-matches" class="teal-text darken-4 center-align pt-3">No matches. Please try another search.</p>`;
+    };
+
     // Get all documents matching searchInput on click
     searchButton.addEventListener('click', e => {
-      // If no matching document, run this function
-      const noMatch = () => {
-        const matchedList = document.querySelector('#matched-list');
-        matchedList.innerHTML = `<p id="no-matches" class="teal-text darken-4 center-align pt-3">No matches. Please try another search.</p>`;
-      };
       // Get value inside searchInput
       searchInput = document.querySelector('#search-input').value.toLowerCase();
       // Ensure the searchInput string is > 0
       if (searchInput.length < 1) {
         noMatch();
       } else {
-        // Find all documents where the city field starts with/matches the searchInput
-        db.collection('test')
-          .where('city', '>=', searchInput)
-          .where('city', '<=', searchInput + '\uf8ff')
-          .get()
-          .then(function(data) {
-            data.forEach(function(doc) {
-              setupMatchedList(data.docs);
-            });
-            // If no matching document
-            if (data.empty) {
-              noMatch();
-            }
-          })
-          .catch(function(error) {
-            console.log(error.message);
-          });
+        if (searchMemberName.checked) {
+          field = 'memberName';
+          searchQuery();
+        }
+        if (searchAddress.checked) {
+          field = 'address';
+          searchQuery();
+        }
+        if (searchCity.checked) {
+          field = 'city';
+          searchQuery();
+        }
+        if (searchPhone.checked) {
+          field = 'phone';
+          searchQuery();
+        }
+        if (searchZip.checked) {
+          field = 'zip';
+          searchQuery();
+        }
       }
     });
   } else {
+    // If no authenticated user, set matched list to nothing
     setupMatchedList([]);
     setupUI(user);
   }
