@@ -1,12 +1,23 @@
-// Sign Up
-const signUpFrom = document.querySelector('#signup-form');
+// Listen for Auth Status Changes
+auth.onAuthStateChanged(user => {
+  if (user) {
+    console.log('User logged in: ', user);
+    setupUI(user);
+  } else {
+    console.log('User logged out');
+    setupUI(user);
+  }
+});
 
-signUpFrom.addEventListener('submit', e => {
+// Sign Up
+const signUpForm = document.querySelector('#signup-form');
+
+signUpForm.addEventListener('submit', e => {
   e.preventDefault();
 
   // Get User Info
-  const email = signUpFrom['signup-email'].value;
-  const password = signUpFrom['signup-password'].value;
+  const email = signUpForm['signup-email'].value;
+  const password = signUpForm['signup-password'].value;
 
   // Sign Up The User
   auth.createUserWithEmailAndPassword(email, password).then(cred => {
@@ -14,6 +25,34 @@ signUpFrom.addEventListener('submit', e => {
     // Close Modal
     M.Modal.getInstance(modal).close();
     // Reset Sign Up Form Inputs
-    signUpFrom.reset();
+    signUpForm.reset();
+  });
+});
+
+// Log Out
+const logout = document.querySelector('#logout');
+
+logout.addEventListener('click', e => {
+  e.preventDefault();
+
+  auth.signOut();
+});
+
+// Log In
+const loginForm = document.querySelector('#login-form');
+
+loginForm.addEventListener('submit', e => {
+  e.preventDefault();
+
+  // Get User Info
+  const email = loginForm['login-email'].value;
+  const password = loginForm['login-password'].value;
+
+  auth.signInWithEmailAndPassword(email, password).then(cred => {
+    const modal = document.querySelector('#modal-login');
+    // Close Modal
+    M.Modal.getInstance(modal).close();
+    // Reset Sign Up Form Inputs
+    loginForm.reset();
   });
 });

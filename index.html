@@ -17,12 +17,12 @@
       <div class="nav-wrapper">
         <a href="#" class="brand-logo">Logo</a>
         <ul class="right">
-          <li class="logged-in">
+          <li class="logged-in" style="display:none;">
             <a href="#" class="teal-text darken-4" id="logout"
               ><strong>Logout</strong></a
             >
           </li>
-          <li class="logged-out">
+          <li class="logged-out" style="display:none;">
             <a
               href="#"
               class="teal-text darken-4 modal-trigger"
@@ -30,7 +30,7 @@
               ><strong>Login</strong></a
             >
           </li>
-          <li class="logged-out">
+          <li class="logged-out" style="display:none;">
             <a
               href="#"
               class="teal-text darken-4 modal-trigger"
@@ -48,7 +48,7 @@
         <div class="col s12">
           <h1 class="text-center mb-3">GP-OOGLE</h1>
 
-          <div id="loading-alert" class="progress">
+          <div id="loading-alert" class="progress d-none">
             <div class="indeterminate"></div>
           </div>
 
@@ -148,8 +148,8 @@
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
