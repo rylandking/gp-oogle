@@ -1,9 +1,13 @@
 // Get Data
-db.collection('test')
-  .get()
-  .then(data => {
-    setupMatchedList(data.docs);
-  });
+const searchButton = document.querySelector('#search-button');
+
+searchButton.addEventListener('click', e => {
+  db.collection('test')
+    .get()
+    .then(data => {
+      setupMatchedList(data.docs);
+    });
+});
 
 // Listen for Auth Status Changes
 auth.onAuthStateChanged(user => {
