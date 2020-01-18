@@ -74,27 +74,13 @@
           <button
             id="search-button"
             type="button"
-            class="btn btn-success col-md-12 font-weight-bold mb-2  logged-in"
+            class="btn btn-success col-md-12 font-weight-bold mb-4 logged-in"
             style="display:none;"
           >
             SEARCH
           </button>
-          <div id="match-list" class="logged-in" style="display:none;"></div>
-
-          <!-- GPO MEMBER CARD -->
-          <div class="card card-body logged-in" style="display:none;">
-            <h5 class="teal-text lighten-1"><strong>Sutter Health</strong></h5>
-            <p class="blue-grey-text darken-4 mb-2">
-              795 Moana Way, Pacifica, CA 94044
-            </p>
-            <p class="blue-grey-text darken-4 mb-2">650.576.0325</p>
-            <span class="grey-text lighten-1 mb-4"
-              >Direct Parent Name | Top Parent Name</span
-            >
-            <div class="new teal lighten-1 py-3 center">
-              <strong><span class="white-text">Vizient - 031456</span></strong>
-            </div>
-          </div>
+          <!-- Output Matched GPO Member Cards-->
+          <div id="matched-list" class="logged-in"></div>
         </div>
       </div>
     </div>
@@ -164,6 +150,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/index.js"></script>
-    <script src="js/main.js"></script>
+    <!-- <script src="js/main.js"></script> -->
   </body>
 </html>

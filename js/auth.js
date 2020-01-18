@@ -1,3 +1,10 @@
+// Get Data
+db.collection('test')
+  .get()
+  .then(data => {
+    setupMatchedList(data.docs);
+  });
+
 // Listen for Auth Status Changes
 auth.onAuthStateChanged(user => {
   if (user) {
