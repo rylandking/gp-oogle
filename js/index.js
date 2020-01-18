@@ -2,17 +2,25 @@ const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
 const userEmail = document.querySelector('#user-email');
 const matchedList = document.querySelector('#matched-list');
+const adminItems = document.querySelectorAll('.admin');
 
 const setupUI = user => {
   if (user) {
-    // Toggle UI Elements
+    // Toggle admin elements
+    if (user.admin) {
+      adminItems.forEach(item => (item.style.display = 'block'));
+    }
+    // Toggle Authenticated UI Elements
     loggedInLinks.forEach(item => (item.style.display = 'block'));
     loggedOutLinks.forEach(item => (item.style.display = 'none'));
 
     // Show user email
     userEmail.append(user.email);
   } else {
-    // Toggle UI Elements
+    // Toggle admin elements
+    adminItems.forEach(item => (item.style.display = 'none'));
+
+    // Toggle Authenticated UI Elements
     loggedInLinks.forEach(item => (item.style.display = 'none'));
     loggedOutLinks.forEach(item => (item.style.display = 'block'));
 
