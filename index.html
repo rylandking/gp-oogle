@@ -52,12 +52,18 @@
       <div class="row">
         <div class="col s12">
           <h1 class="text-center mb-3">GP-OOGLE</h1>
-
-          <div id="loading-alert" class="progress d-none">
+          <p class="text-center logged-out" style="display:none;">
+            Please log in to use.
+          </p>
+          <div
+            id="loading-alert"
+            class="progress logged-in d-none"
+            style="display:none;"
+          >
             <div class="indeterminate"></div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group logged-in" style="display:none;">
             <input
               type="text"
               id="search"
@@ -68,14 +74,15 @@
           <button
             id="search-button"
             type="button"
-            class="btn btn-success col-md-12 font-weight-bold mb-2"
+            class="btn btn-success col-md-12 font-weight-bold mb-2  logged-in"
+            style="display:none;"
           >
             SEARCH
           </button>
-          <div id="match-list"></div>
+          <div id="match-list" class="logged-in" style="display:none;"></div>
 
           <!-- GPO MEMBER CARD -->
-          <div class="card card-body">
+          <div class="card card-body logged-in" style="display:none;">
             <h5 class="teal-text lighten-1"><strong>Sutter Health</strong></h5>
             <p class="blue-grey-text darken-4 mb-2">
               795 Moana Way, Pacifica, CA 94044
