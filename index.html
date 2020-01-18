@@ -15,7 +15,6 @@
   <body>
     <nav class="white z-depth-0">
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Logo</a>
         <ul class="right">
           <li class="admin" style="display:none;">
             <a
@@ -55,14 +54,18 @@
       </div>
     </nav>
 
-    <!-- Search Bar -->
     <div class="container">
       <div class="row">
+        <!-- Title -->
         <div class="col s12">
           <h1 class="text-center mb-3">GP-OOGLE</h1>
           <p class="text-center logged-out" style="display:none;">
             Please sign up or log in to use.
           </p>
+        </div>
+
+        <!-- Search and Cards -->
+        <div class="col s9">
           <div
             id="loading-alert"
             class="progress logged-in d-none"
@@ -76,23 +79,60 @@
               type="text"
               id="search-input"
               class="form-control form-control-lg"
-              placeholder="Enter a GPO member's name, address, phone, city..."
+              placeholder="Member name, address, city, etc"
             />
           </div>
           <button
             id="search-button"
             type="button"
-            class="btn btn-success col-md-12 font-weight-bold mb-4 logged-in"
-            style="display:none;"
+            class="btn teal lighten-1 mb-4 logged-in"
+            style="display:none; width: 100%;"
           >
             SEARCH
           </button>
           <!-- Output Matched GPO Member Cards-->
           <div id="matched-list" class="logged-in"></div>
         </div>
+
+        <!-- Checkboxes for Search Fields -->
+        <div class="col s3 logged-in" style="display:none">
+          <form action="#" class="ml-3">
+            <p class="mb-0">
+              <label>
+                <input type="checkbox" checked="checked" />
+                <span>Member Name</span>
+              </label>
+            </p>
+            <p class="mb-0">
+              <label>
+                <input type="checkbox" />
+                <span>Address</span>
+              </label>
+            </p>
+            <p class="mb-0">
+              <label>
+                <input type="checkbox" />
+                <span>City</span>
+              </label>
+            </p>
+            <p class="mb-0">
+              <label>
+                <input type="checkbox" />
+                <span>Phone</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" />
+                <span>Zip</span>
+              </label>
+            </p>
+          </form>
+        </div>
       </div>
+
+      <!-- Add Admin Input -->
       <div class="row">
-        <!-- ADMIN ACTIONS -->
         <form
           class="center-align admin-actions admin"
           style="margin:40px auto; max-width:300px; display:none;"
