@@ -17,7 +17,10 @@
       <div class="nav-wrapper">
         <ul class="right">
           <li class="admin" style="display:none;">
-            <a href="/admin.html" class="teal-text darken-4"
+            <a
+              href="#"
+              class="teal white-text modal-trigger"
+              data-target="modal-refresh-rosters"
               ><strong>Admin</strong></a
             >
           </li>
@@ -61,94 +64,37 @@
           </p>
         </div>
 
-        <!-- Search and Cards -->
-        <div class="col s9">
-          <div
-            id="loading-alert"
-            class="progress logged-in d-none"
-            style="display:none;"
-          >
-            <div class="indeterminate"></div>
-          </div>
-
-          <div class="form-group logged-in" style="display:none;">
-            <input
-              type="text"
-              id="search-input"
-              class="form-control form-control-lg"
-              placeholder="Member name, address, city, etc"
-            />
-          </div>
-          <button
-            id="search-button"
-            type="button"
-            class="btn teal lighten-1 mb-4 logged-in"
-            style="display:none; width: 100%;"
-          >
-            SEARCH
-          </button>
-          <!-- Output Matched GPO Member Cards-->
-          <div id="matched-list" class="logged-in"></div>
-        </div>
-
-        <!-- Checkboxes for Search Fields -->
-        <div class="col s3 logged-in" style="display:none">
-          <form action="#" class="ml-3">
-            <p class="mb-0">
-              <label>
-                <input
-                  type="radio"
-                  name="searchSelection"
-                  searchBy="searchMemberName"
-                  checked
-                />
-                <span>Member Name</span>
-              </label>
-            </p>
-            <p class="mb-0">
-              <label>
-                <input
-                  type="radio"
-                  name="searchSelection"
-                  searchBy="searchAddress"
-                />
-                <span>Address</span>
-              </label>
-            </p>
-            <p class="mb-0">
-              <label>
-                <input
-                  type="radio"
-                  name="searchSelection"
-                  searchBy="searchCity"
-                />
-                <span>City</span>
-              </label>
-            </p>
-            <p class="mb-0">
-              <label>
-                <input
-                  type="radio"
-                  name="searchSelection"
-                  searchBy="searchPhone"
-                />
-                <span>Phone</span>
-              </label>
-            </p>
-            <p>
-              <label>
-                <input
-                  type="radio"
-                  name="searchSelection"
-                  searchBy="searchZip"
-                />
-                <span>Zip</span>
-              </label>
-            </p>
+        <!-- Upload CSVs/JSON -->
+        <div class="col s9 admin" style="display:none;">
+          <h4>Refresh Rosters</h4>
+          <br />
+          <form id="refresh-rosters-form">
+            <input type="file" id="roster-file">
+            <div class="my-3"></div>
+            <button class="btn teal lighten-1 z-depth-0">Upload</button>
+            <p id="upload-confirmation" class="pink-text center-align pt-3"></p>
           </form>
         </div>
-      </div>
-    </div>
+
+        <!-- Add Admin Input -->
+          <div class="col s3 admin" style="display:none">
+            <form
+              class="center-align admin-actions admin"
+              style="margin:40px auto; max-width:300px; display:none;"
+            >
+              <input
+                type="email"
+                placeholder="User email"
+                id="admin-email"
+                required
+              />
+              <button class="btn-small teal lighten-1 z-depth-0">
+                Make admin
+              </button>
+              <p id="admin-result" class="teal-text darken-4 center-align pt-3"></p>
+            </form>
+          </div>
+        </div>
 
     <!-- SIGN UP MODAL -->
     <div id="modal-signup" class="modal">
@@ -190,6 +136,59 @@
       </div>
     </div>
 
+
+    <!-- Refresh Rosters -->
+    <!-- <div id="modal-refresh-rosters" class="modal">
+      <div class="modal-content">
+        <h4>Admin</h4>
+        <br />
+        <form id="refresh-rosters-form">
+          <div class="input-field">
+            <input type="text" id="address" required />
+            <label for="address">Address</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="city" required />
+            <label for="city">City</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="directParentName" required />
+            <label for="directParentName">Direct Parent Name</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="gpoID" required />
+            <label for="gpoID">GPO ID</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="gpoName" required />
+            <label for="gpoName">GPO Name</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="memberName" required />
+            <label for="memberName">Member Name</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="phone" required />
+            <label for="phone">Phone</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="state" required />
+            <label for="state">State</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="topParentName" required />
+            <label for="topParentName">Top Parent Name</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="zip" required />
+            <label for="zip">Zip Code</label>
+          </div>
+          <button class="btn teal lighten-1 z-depth-0">Upload</button>
+          <p id="upload-confirmation" class="pink-text center-align pt-3"></p>
+        </form>
+      </div>
+    </div> -->
+
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-auth.js"></script>
@@ -216,7 +215,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="js/auth.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/admin.js"></script>
     <!-- <script src="js/main.js"></script> -->
   </body>
 </html>
