@@ -10,11 +10,14 @@ const setupMatchedList = data => {
     if (gpoMember.gpoName == 'Vizient') {
       gpoMemberCard = `
       <div class="card card-body logged-in">
-        <h5 class="amber-text lighten-1"><strong>${gpoMember.memberName}</strong></h5>
-        <p class="blue-grey-text darken-4 mb-2">
+        <h5 class="amber-text lighten- mb-11"><strong>${gpoMember.memberName}</strong></h5>
+        <div class="pb-3">
+          <span><em>${gpoMember.classOfTrade}</em></span>
+        </div>
+        <p class="blue-grey-text darken-4 mb-0 pb-0">
           ${gpoMember.address}, ${gpoMember.city}, ${gpoMember.state} ${gpoMember.zip}
         </p>
-        <p class="blue-grey-text darken-4 mb-2">${gpoMember.phone}</p>
+        <p class="blue-grey-text darken-4 mb-3">${gpoMember.phone}</p>
         <span class="grey-text lighten-1"
           >${gpoMember.directParentName} | ${gpoMember.topParentName}</span
         >
@@ -26,11 +29,14 @@ const setupMatchedList = data => {
     } else if (gpoMember.gpoName == 'Premier') {
       gpoMemberCard = `
       <div class="card card-body logged-in">
-        <h5 class="teal-text lighten-1"><strong>${gpoMember.memberName}</strong></h5>
-        <p class="blue-grey-text darken-4 mb-2">
+        <h5 class="teal-text lighten-1 mb-1"><strong>${gpoMember.memberName}</strong></h5>
+        <div class="pb-3">
+          <span><em>${gpoMember.classOfTrade}</em></span>
+        </div>
+        <p class="blue-grey-text darken-4 mb-0 pb-0">
           ${gpoMember.address}, ${gpoMember.city}, ${gpoMember.state} ${gpoMember.zip}
         </p>
-        <p class="blue-grey-text darken-4 mb-2">${gpoMember.phone}</p>
+        <p class="blue-grey-text darken-4 mb-3">${gpoMember.phone}</p>
         <span class="grey-text lighten-1"
           >${gpoMember.directParentName} | ${gpoMember.topParentName}</span
         >
@@ -42,11 +48,14 @@ const setupMatchedList = data => {
     } else {
       gpoMemberCard = `
       <div class="card card-body logged-in">
-        <h5 class="pink-text lighten-1"><strong>${gpoMember.memberName}</strong></h5>
-        <p class="blue-grey-text darken-4 mb-2">
+        <h5 class="pink-text lighten-1 mb-1"><strong>${gpoMember.memberName}</strong></h5>
+        <div class="pb-3">
+          <span><em>${gpoMember.classOfTrade}</em></span>
+        </div>
+        <p class="blue-grey-text darken-4 mb-0 pb-0">
           ${gpoMember.address}, ${gpoMember.city}, ${gpoMember.state} ${gpoMember.zip}
         </p>
-        <p class="blue-grey-text darken-4 mb-2">${gpoMember.phone}</p>
+        <p class="blue-grey-text darken-4 mb-3">${gpoMember.phone}</p>
         <span class="grey-text lighten-1"
           >${gpoMember.directParentName} | ${gpoMember.topParentName}</span
         >
@@ -78,6 +87,7 @@ auth.onAuthStateChanged(user => {
     const searchCity = document.querySelector('input[searchBy=searchCity]');
     const searchPhone = document.querySelector('input[searchBy=searchPhone]');
     const searchZip = document.querySelector('input[searchBy=searchZip]');
+    const searchTrade = document.querySelector('input[searchBy=searchTrade]');
     // Get all documents matching searchInput on 'enter' key click
     searchInput.addEventListener('keyup', function(event) {
       if (event.keyCode === 13) {
@@ -86,9 +96,24 @@ auth.onAuthStateChanged(user => {
       }
     });
 
+    // Convert string to capital first letter of each word
+    function titleCase(str) {
+      var splitStr = str.toLowerCase().split(' ');
+      for (var i = 0; i < splitStr.length; i++) {
+        // Assign it back to the array
+        splitStr[i] =
+          splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+      }
+      // Directly return the joined string
+      return splitStr.join(' ');
+    }
+
     // Find all documents with city field matches searchInput
     const searchQuery = () => {
-      db.collection('test')
+      //Convert searchInput to capital letter of each word
+      searchInput = titleCase(searchInput);
+
+      db.collection('test2')
         .where(field, '>=', searchInput)
         .where(field, '<=', searchInput + '\uf8ff')
         .get()
@@ -138,6 +163,10 @@ auth.onAuthStateChanged(user => {
         }
         if (searchZip.checked) {
           field = 'zip';
+          searchQuery();
+        }
+        if (searchTrade.checked) {
+          field = 'classOfTrade';
           searchQuery();
         }
       }

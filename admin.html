@@ -67,6 +67,31 @@
         <!-- Upload CSVs/JSON -->
         <div class="col s9 admin" style="display:none;">
           <h4>Refresh Rosters</h4>
+          <h6>Create Clean Rosters</h6>
+          <ol>
+            <li>Add gpoName column to first column.</li>
+            <li>Update the headings to match.</li>
+            <li>Remove all commas via Find & Replace.</li>
+            <li>Double check all headings match.</li>
+            <li>Save as NAME_clean.csv.</li>
+          </ol>
+          <h6>Upload Test Rosters</h6>
+          <ol>
+            <li>Create test CSV files with 100 rows.</li>
+            <li>Convert each test CSV to JSON.</li>
+            <li>Ensure all fields are strings.</li>
+            <li>Ensure all fields are mapped correctly.</li>
+            <li>Add {"collection_name": [JSON]} to each JSON file. (One or separate collections?)</li>
+            <li>Upload test JSON files to Firestore.</li>
+            <li>Test GP-OOGLE.</li>
+          </ol>
+          <h6>Upload Clean Rosters</h6>
+          <ol>
+            <li>Convert each NAME_clean.csv to JSON.</li>
+            <li>Add {"collection_name": [JSON]} to each JSON file. (One or separate collections?)</li>
+            <li>Upload clean JSON files to Firestore.</li>
+            <li>Test GP-OOGLE. Pray it worked correctly.</li>
+          </ol>
           <br />
           <form id="refresh-rosters-form">
             <input type="file" id="roster-file">

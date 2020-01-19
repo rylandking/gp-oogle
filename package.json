@@ -1,0 +1,22 @@
+{
+  "name": "gp-oogle",
+  "version": "1.0.0",
+  "description": "Search engine for GPO members",
+  "main": "config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rylandking/gp-oogle.git"
+  },
+  "author": "Ryland King",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rylandking/gp-oogle/issues"
+  },
+  "homepage": "https://github.com/rylandking/gp-oogle#readme",
+  "dependencies": {
+    "firestore-export-import": "^0.3.2"
+  }
+}
