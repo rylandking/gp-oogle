@@ -1,6 +1,5 @@
-const matchedList = document.querySelector('#matched-list');
-
 // Populate matching GPO members (#matched-list)
+const matchedList = document.querySelector('#matched-list');
 const setupMatchedList = data => {
   let html = '';
 

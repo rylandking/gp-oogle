@@ -18,6 +18,15 @@ adminForm.addEventListener('submit', e => {
   }, 5000);
 });
 
+// JSON to Firestore via Cloud Functions
+const jsonToFirestoreForm = document.querySelector('#json-to-firestore');
+jsonToFirestoreForm.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const jsonToFirestore = functions.httpsCallable('jsonToFirestore');
+  jsonToFirestore();
+});
+
 // Refresh rosters
 const refreshRostersForm = document.querySelector('#refresh-rosters-form');
 const confirmation = document.querySelector('#upload-confirmation');

@@ -1,6 +1,16 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-admin.initializeApp();
+const serviceAccount = require('./serviceAccount.json');
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: 'https://gp-oogle.firebaseio.com',
+  storageBucket: 'gp-oogle.appspot.com'
+});
+
+let db = admin.firestore();
+let csvToJson = require('convert-csv-to-json');
+const firestoreService = require('firestore-export-import');
+const firebaseConfig = require('./config.js');
 
 exports.addAdminRole = functions.https.onCall((data, context) => {
   // Check that request is made by an admin
@@ -28,3 +38,37 @@ exports.addAdminRole = functions.https.onCall((data, context) => {
       return err;
     });
 });
+
+// Convert CSV to JSON (not JSON File) to FIRESTORE
+exports.csvToJson = functions.https.onRequest((req, res) => {
+  let fileInputName = 'hpg-test.csv';
+
+  csvToJson.fieldDelimiter(',').getJsonFromCsv(fileInputName);
+
+  let json = csvToJson.getJsonFromCsv(fileInputName);
+  for (let i = 0; i < json.length; i++) {
+    console.log(json[i]);
+    let setDoc = db
+      .collection('cities3')
+      .doc()
+      .set(json[i]);
+
+    console.log(i, json[i]);
+  }
+
+  // csvToJson.generateJsonFileFromCsv(fileInputName, fileOutputName);
+});
+
+// Send JSON File To Firestore
+// exports.jsonToFirestore = functions.https.onRequest((req, res) => {
+//   const jsonToFirestore = async () => {
+//     try {
+//       await firestoreService.restore('hpg-test.json');
+//       console.log('Upload Success');
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+//   jsonToFirestore();
+// });

@@ -93,31 +93,38 @@
             <li>Test GP-OOGLE. Pray it worked correctly.</li>
           </ol>
           <br />
-          <form id="refresh-rosters-form">
-            <input type="file" id="roster-file">
-            <div class="my-3"></div>
-            <button class="btn teal lighten-1 z-depth-0">Upload</button>
-            <p id="upload-confirmation" class="pink-text center-align pt-3"></p>
-          </form>
         </div>
 
         <!-- Add Admin Input -->
           <div class="col s3 admin" style="display:none">
-            <form
-              class="center-align admin-actions admin"
-              style="margin:40px auto; max-width:300px; display:none;"
-            >
-              <input
-                type="email"
-                placeholder="User email"
-                id="admin-email"
-                required
-              />
-              <button class="btn-small teal lighten-1 z-depth-0">
-                Make admin
-              </button>
-              <p id="admin-result" class="teal-text darken-4 center-align pt-3"></p>
-            </form>
+            <div class="row">
+              <form
+                class="center-align admin-actions admin"
+                style="margin:40px auto; max-width:300px; display:none;"
+              >
+                <input
+                  type="email"
+                  placeholder="User email"
+                  id="admin-email"
+                  required
+                />
+                <button class="btn-small teal lighten-1 z-depth-0">
+                  Make admin
+                </button>
+                <p id="admin-result" class="teal-text darken-4 center-align pt-3"></p>
+              </form>
+            </div>
+            <div class="row">
+              <form id="json-to-firestore" class="admin center-align" style="margin:40px auto; max-width:300px; display:none;">
+                <input type="file" id="roster-file">
+                <button class="btn-small teal lighten-1 z-depth-0 mt-3">
+                  Upload JSON file to Storage
+                </button>
+                <button class="btn-small teal lighten-1 z-depth-0 mt-3">
+                  Import JSON file to Database
+                </button>
+              </form>
+            </div>
           </div>
         </div>
 
@@ -160,59 +167,6 @@
         </form>
       </div>
     </div>
-
-
-    <!-- Refresh Rosters -->
-    <!-- <div id="modal-refresh-rosters" class="modal">
-      <div class="modal-content">
-        <h4>Admin</h4>
-        <br />
-        <form id="refresh-rosters-form">
-          <div class="input-field">
-            <input type="text" id="address" required />
-            <label for="address">Address</label>
-          </div>
-          <div class="input-field">
-            <input type="text" id="city" required />
-            <label for="city">City</label>
-          </div>
-          <div class="input-field">
-            <input type="text" id="directParentName" required />
-            <label for="directParentName">Direct Parent Name</label>
-          </div>
-          <div class="input-field">
-            <input type="text" id="gpoID" required />
-            <label for="gpoID">GPO ID</label>
-          </div>
-          <div class="input-field">
-            <input type="text" id="gpoName" required />
-            <label for="gpoName">GPO Name</label>
-          </div>
-          <div class="input-field">
-            <input type="text" id="memberName" required />
-            <label for="memberName">Member Name</label>
-          </div>
-          <div class="input-field">
-            <input type="text" id="phone" required />
-            <label for="phone">Phone</label>
-          </div>
-          <div class="input-field">
-            <input type="text" id="state" required />
-            <label for="state">State</label>
-          </div>
-          <div class="input-field">
-            <input type="text" id="topParentName" required />
-            <label for="topParentName">Top Parent Name</label>
-          </div>
-          <div class="input-field">
-            <input type="text" id="zip" required />
-            <label for="zip">Zip Code</label>
-          </div>
-          <button class="btn teal lighten-1 z-depth-0">Upload</button>
-          <p id="upload-confirmation" class="pink-text center-align pt-3"></p>
-        </form>
-      </div>
-    </div> -->
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
