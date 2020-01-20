@@ -117,7 +117,7 @@
             <div class="row">
               <form id="json-to-firestore" class="admin center-align" style="margin:40px auto; max-width:300px; display:none;">
                 <input type="file" id="roster-file">
-                <button class="btn-small teal lighten-1 z-depth-0 mt-3">
+                <button id="upload-json-file" class="btn-small teal lighten-1 z-depth-0 mt-3">
                   Upload JSON file to Storage
                 </button>
                 <button class="btn-small teal lighten-1 z-depth-0 mt-3">
@@ -173,6 +173,8 @@
     <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-functions.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script>
+
 
     <script>
       // Your web app's Firebase configuration
@@ -180,7 +182,8 @@
         apiKey: 'AIzaSyDHboF4M-Qb3B3jcMPAgTPJQeDEGgdgko0',
         authDomain: 'gp-oogle.firebaseapp.com',
         databaseURL: 'https://gp-oogle.firebaseio.com',
-        projectId: 'gp-oogle'
+        projectId: 'gp-oogle',
+        storageBucket: 'gp-oogle.appspot.com'
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
@@ -189,6 +192,7 @@
       const auth = firebase.auth();
       const db = firebase.firestore();
       const functions = firebase.functions();
+      const storage = firebase.storage();
     </script>
 
     <!-- Compiled and minified JavaScript -->

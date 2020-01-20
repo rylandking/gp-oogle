@@ -18,6 +18,27 @@ adminForm.addEventListener('submit', e => {
   }, 5000);
 });
 
+////
+// TO DO - Upload CSV to Firebase Storage
+const uploadJSONToStorage = document.querySelector('#upload-json-file');
+
+uploadJSONToStorage.addEventListener('click', e => {
+  const file = document.querySelector('#roster-file').files[0];
+  const name = +new Date() + '-' + file.name;
+  const metadata = { contentType: file.type };
+
+  // Upload file to Firebase Storage
+  let storageRef = storage.ref();
+  const task = storageRef.child(name).put(file, metadata);
+  task
+    .then(snapshot => snapshot.ref.getDownloadURL())
+    .then(url => {
+      console.log(url);
+      // document.querySelector('#someImageTagID').src = url;
+    })
+    .catch(console.error);
+});
+
 // JSON to Firestore via Cloud Functions
 const jsonToFirestoreForm = document.querySelector('#json-to-firestore');
 jsonToFirestoreForm.addEventListener('submit', e => {
@@ -26,56 +47,3 @@ jsonToFirestoreForm.addEventListener('submit', e => {
   const jsonToFirestore = functions.httpsCallable('jsonToFirestore');
   jsonToFirestore();
 });
-
-// Refresh rosters
-const refreshRostersForm = document.querySelector('#refresh-rosters-form');
-const confirmation = document.querySelector('#upload-confirmation');
-refreshRostersForm.addEventListener('submit', e => {
-  e.preventDefault();
-
-  db.collection('test')
-    .add({
-      address: refreshRostersForm['address'].value,
-      city: refreshRostersForm['city'].value,
-      directParentName: refreshRostersForm['directParentName'].value,
-      gpoID: refreshRostersForm['gpoID'].value,
-      gpoName: refreshRostersForm['gpoName'].value,
-      memberName: refreshRostersForm['memberName'].value,
-      phone: refreshRostersForm['phone'].value,
-      state: refreshRostersForm['state'].value,
-      topParentName: refreshRostersForm['topParentName'].value,
-      zip: refreshRostersForm['zip'].value
-    })
-    .then(() => {
-      // Confirm document was added to Firestore
-      confirmation.innerHTML = 'Document added to Firestore';
-    })
-    .catch(err => {
-      // Show error of why document was not added to Firestore
-      confirmation.innerHTML = `${err.message}`;
-    });
-});
-
-// db.collection('test')
-//   .add({
-//     gpoID: 'H036022',
-//     GLN: '1100009486610',
-//     memberName: 'Cascade Foot Clinic LLC',
-//     address: '185 NE 12th St',
-//     city: 'Madras',
-//     state: 'OR',
-//     zip: '97741     ',
-//     phone: '541-388-2861',
-//     directParentName: 'Cascade Foot Clinic LLC',
-//     topParentName: 'Expansion LLC',
-//     classOfTrade: 'Ambulatory Care',
-//     facilityType: 'Physician Clinic'
-//   })
-//   .then(() => {
-//     // Confirm document was added to Firestore
-//     console.log('Document added to Firestore');
-//   })
-//   .catch(err => {
-//     // Show error of why document was not added to Firestore
-//     confirmation.innerHTML = `${err.message}`;
-//   });

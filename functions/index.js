@@ -39,7 +39,7 @@ exports.addAdminRole = functions.https.onCall((data, context) => {
     });
 });
 
-// Convert CSV to JSON (not JSON File) to FIRESTORE
+// Convert CSV to JSON to FIRESTORE (not JSON File)
 exports.csvToJson = functions.https.onRequest((req, res) => {
   let fileInputName = 'hpg-test.csv';
 
@@ -49,26 +49,24 @@ exports.csvToJson = functions.https.onRequest((req, res) => {
   for (let i = 0; i < json.length; i++) {
     console.log(json[i]);
     let setDoc = db
-      .collection('cities3')
+      .collection('cities6')
       .doc()
       .set(json[i]);
 
     console.log(i, json[i]);
   }
-
-  // csvToJson.generateJsonFileFromCsv(fileInputName, fileOutputName);
 });
 
 // Send JSON File To Firestore
-// exports.jsonToFirestore = functions.https.onRequest((req, res) => {
-//   const jsonToFirestore = async () => {
-//     try {
-//       await firestoreService.restore('hpg-test.json');
-//       console.log('Upload Success');
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+exports.jsonToFirestore = functions.https.onRequest((req, res) => {
+  const jsonToFirestore = async () => {
+    try {
+      await firestoreService.restore('hpg-test.json');
+      console.log('Upload Success');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-//   jsonToFirestore();
-// });
+  jsonToFirestore();
+});
