@@ -70,29 +70,30 @@
           <h6>Create Clean Rosters</h6>
           <ol>
             <li>Add gpoName column to first column.</li>
-            <li>Update the headings to match.</li>
+            <li>Update the headings to match field keys.</li>
             <li>Remove all commas via Find & Replace.</li>
             <li>Double check all headings match.</li>
             <li>Save as NAME_clean.csv.</li>
           </ol>
           <h6>Upload Test Rosters</h6>
           <ol>
-            <li>Create test CSV files with 100 rows.</li>
-            <li>Convert each test CSV to JSON.</li>
-            <li>Ensure all fields are strings.</li>
-            <li>Ensure all fields are mapped correctly.</li>
-            <li>Add {"collection_name": [JSON]} to each JSON file. (One or separate collections?)</li>
-            <li>Upload test JSON files to Firestore.</li>
-            <li>Test GP-OOGLE.</li>
+            <li>Create test CSVs with 100 rows.</li>
+            <li>Upload test CSVs to Firestore.</li>
           </ol>
           <h6>Upload Clean Rosters</h6>
           <ol>
-            <li>Convert each NAME_clean.csv to JSON.</li>
-            <li>Add {"collection_name": [JSON]} to each JSON file. (One or separate collections?)</li>
-            <li>Upload clean JSON files to Firestore.</li>
-            <li>Test GP-OOGLE. Pray it worked correctly.</li>
+            <li>Upload each clean Roster.</li>
           </ol>
-          <br />
+          <hr>
+          <!-- Cloud Function Tracks Finalization of Upload to Cloud Storage and Imports It Into Firebase -->
+          <form class="admin" style="display:none;">
+            <input type="file" id="roster-file">
+            <br>
+            <button id="upload-csv-file" class="btn-small teal lighten-1 z-depth-0 mt-4 mb-2">
+              Upload CSV to Database
+            </button>
+            <p>Triple check the steps above.</p>
+          </form>
         </div>
 
         <!-- Add Admin Input -->
@@ -112,17 +113,6 @@
                   Make admin
                 </button>
                 <p id="admin-result" class="teal-text darken-4 center-align pt-3"></p>
-              </form>
-            </div>
-            <div class="row">
-              <form id="json-to-firestore" class="admin center-align" style="margin:40px auto; max-width:300px; display:none;">
-                <input type="file" id="roster-file">
-                <button id="upload-json-file" class="btn-small teal lighten-1 z-depth-0 mt-3">
-                  Upload JSON file to Storage
-                </button>
-                <button class="btn-small teal lighten-1 z-depth-0 mt-3">
-                  Import JSON file to Database
-                </button>
               </form>
             </div>
           </div>

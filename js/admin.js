@@ -18,11 +18,12 @@ adminForm.addEventListener('submit', e => {
   }, 5000);
 });
 
-////
-// TO DO - Upload CSV to Firebase Storage
-const uploadJSONToStorage = document.querySelector('#upload-json-file');
+// Upload CSV to Firebase Storage
+const uploadCSVToStorage = document.querySelector('#upload-csv-file');
 
-uploadJSONToStorage.addEventListener('click', e => {
+uploadCSVToStorage.addEventListener('click', e => {
+  e.preventDefault();
+
   const file = document.querySelector('#roster-file').files[0];
   const name = +new Date() + '-' + file.name;
   const metadata = { contentType: file.type };
@@ -34,16 +35,6 @@ uploadJSONToStorage.addEventListener('click', e => {
     .then(snapshot => snapshot.ref.getDownloadURL())
     .then(url => {
       console.log(url);
-      // document.querySelector('#someImageTagID').src = url;
     })
     .catch(console.error);
-});
-
-// JSON to Firestore via Cloud Functions
-const jsonToFirestoreForm = document.querySelector('#json-to-firestore');
-jsonToFirestoreForm.addEventListener('submit', e => {
-  e.preventDefault();
-
-  const jsonToFirestore = functions.httpsCallable('jsonToFirestore');
-  jsonToFirestore();
 });
