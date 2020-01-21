@@ -1,12 +1,15 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const serviceAccount = require('./serviceAccount.json');
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://gp-oogle.firebaseio.com',
   storageBucket: 'gp-oogle.appspot.com'
 });
 
+const storage = admin.storage();
+const gcs = require('@google-cloud/storage');
 let db = admin.firestore();
 let csvToJson = require('convert-csv-to-json');
 const firestoreService = require('firestore-export-import');
@@ -39,34 +42,47 @@ exports.addAdminRole = functions.https.onCall((data, context) => {
     });
 });
 
-// Convert CSV to JSON to FIRESTORE (not JSON File)
-exports.csvToJson = functions.https.onRequest((req, res) => {
-  let fileInputName = 'hpg-test.csv';
+// Import newly uploaded CSV from Storage to Firestore
+exports.importCSVToFirestore = functions.storage
+  .object()
+  .onFinalize(async object => {
+    const fileBucket = object.bucket; // The Storage bucket that contains the file.
+    const filePath = object.name; // File path in the bucket.
+    const contentType = object.contentType; // File content type.
+    const metageneration = object.metageneration; // Number of times metadata has been generated. New objects have a value of 1.
 
-  csvToJson.fieldDelimiter(',').getJsonFromCsv(fileInputName);
+    const spawn = require('child-process-promise').spawn;
+    const path = require('path');
+    const os = require('os');
+    const fs = require('fs');
 
-  let json = csvToJson.getJsonFromCsv(fileInputName);
-  for (let i = 0; i < json.length; i++) {
-    console.log(json[i]);
-    let setDoc = db
-      .collection('cities6')
-      .doc()
-      .set(json[i]);
+    // Download file from bucket.
+    const bucket = admin.storage().bucket(fileBucket);
+    const tempFilePath = path.join(os.tmpdir(), filePath);
+    const metadata = {
+      contentType: contentType
+    };
+    await bucket
+      .file(filePath)
+      .download({ destination: tempFilePath })
+      .then(() => {
+        console.log('Image downloaded locally to', tempFilePath);
+        let fileInputName = tempFilePath;
 
-    console.log(i, json[i]);
-  }
-});
+        csvToJson.fieldDelimiter(',').getJsonFromCsv(fileInputName);
 
-// Send JSON File To Firestore
-exports.jsonToFirestore = functions.https.onRequest((req, res) => {
-  const jsonToFirestore = async () => {
-    try {
-      await firestoreService.restore('hpg-test.json');
-      console.log('Upload Success');
-    } catch (error) {
-      console.log(error);
-    }
-  };
+        let json = csvToJson.getJsonFromCsv(fileInputName);
+        for (let i = 0; i < json.length; i++) {
+          console.log(json[i]);
+          let setDoc = db
+            .collection('cities6')
+            .doc()
+            .set(json[i]);
 
-  jsonToFirestore();
-});
+          console.log(i, json[i]);
+        }
+      });
+
+    console.log(object);
+    return;
+  });
